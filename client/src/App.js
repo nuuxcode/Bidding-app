@@ -77,7 +77,7 @@ function App() {
       </div>
       <button onClick={placeBid}>Place Bid</button>
       <button onClick={findWinner}>Find Winner</button>
-      {message.split('\n').map((item, i) => <p key={i}>{item}</p>)} {/* Modify this line */}
+      {message.split('\n').map((item, i) => <p key={i}>{item}</p>)} {/* this split so each bid get in new lie appended :D */}
       <p>{winner}</p>
       <table>
         <thead>

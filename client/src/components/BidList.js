@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { getBids, deleteBid, updateBid } from '../services/bidService';
+import React from 'react';
+import { deleteBid, updateBid } from '../services/bidService';
 
-function BidList() {
-  const [bids, setBids] = useState([]);
-
-  useEffect(() => {
-    const fetchBids = async () => {
-      const response = await getBids();
-      if (response.data.success) {
-        setBids(response.data.data);
-      }
-    };
-
-    fetchBids();
-  }, []);
+function BidList({ bids, fetchBids }) {
 
   const handleDelete = async (id) => {
     const response = await deleteBid(id);
     if (response.data.success) {
-      setBids(bids.filter((bid) => bid._id !== id));
+      fetchBids();
     }
   };
 
   const handleUpdate = async (id, newBid) => {
     const response = await updateBid(id, newBid);
     if (response.data.success) {
-      setBids(bids.map((bid) => (bid._id === id ? { ...bid, currentBid: newBid } : bid)));
+      fetchBids();
     }
   };
 

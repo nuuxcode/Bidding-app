@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { placeBid } from '../services/bidService';
 import { findWinner } from '../services/winnerService';
 
-function BidForm() {
+function BidForm({ fetchBids }) {
+
   const [name, setName] = useState('');
   const [bid, setBid] = useState('');
   const [message, setMessage] = useState('');
@@ -23,6 +24,7 @@ function BidForm() {
       setError('');
       setShowWinner(false);
       setMessage(prevMessage => `${prevMessage}\nBid placed successfully by ${name} with bid ${bid}!`);
+      fetchBids();
     }
   };
 

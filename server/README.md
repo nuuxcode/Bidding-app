@@ -49,7 +49,7 @@ cd client
 yarn start
 ```
 
-The app should now be running on http://localhost:3000 with Backend API in port 5000.
+The app should now be running on http://localhost:3000 with Backend API in port 3006.
 
 ### Built With
 

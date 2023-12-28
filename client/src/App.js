@@ -8,8 +8,12 @@ function App() {
   const [winner, setWinner] = useState('');
   const [bids, setBids] = useState([]);
 
+  const api = axios.create({
+    baseURL: `http://${window.location.hostname}:5000`
+  });
+
   const deleteBid = async (id) => {
-    const response = await axios.delete(`http://localhost:5000/delete-bid/${id}`);
+    const response = await api.delete(`/delete-bid/${id}`);
     if (response.data.success) {
       fetchBids();
     } else {
@@ -18,7 +22,7 @@ function App() {
   };
 
   const updateBid = async (id, newBid) => {
-    const response = await axios.put(`http://localhost:5000/update-bid/${id}`, { bid: newBid });
+    const response = await api.put(`/update-bid/${id}`, { bid: newBid });
     if (response.data.success) {
       fetchBids();
     } else {
@@ -27,7 +31,7 @@ function App() {
   };
 
   const placeBid = async () => {
-    const response = await axios.post('http://localhost:5000/place-bid', { name, bid });
+    const response = await api.post('/place-bid', { name, bid });
     if (response.data.success) {
       setMessage(prevMessage => `${prevMessage}\nBid placed successfully by ${name} with bid ${bid}!`);
       fetchBids();
@@ -38,7 +42,7 @@ function App() {
   };
 
   const findWinner = async () => {
-    const response = await axios.get('http://localhost:5000/find-winner');
+    const response = await api.get('/find-winner');
     if (response.data.success) {
       setWinner(`Winner: ${response.data.data.name} with bid ${response.data.data.currentBid}`);
     } else {
@@ -48,7 +52,7 @@ function App() {
   };
 
   const fetchBids = async () => {
-    const response = await axios.get('http://localhost:5000/get-bids');
+    const response = await api.get('/get-bids');
     if (response.data.success) {
       setBids(response.data.data);
     } else {
